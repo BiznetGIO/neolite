@@ -1,0 +1,19 @@
+[package]
+name = "neolite-sdk"
+version = "0.1.0"
+authors = ["azzamsa <azzam@biznetgio.com>"]
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/BiznetGIO/neolite-sdk"
+rust-version = "1.73.0"
+description = "Neo Lite SDK"
+
+[dependencies]
+
+[package.metadata.release]
+sign-commit = true
+sign-tag = true
+tag-message = "v{{version}}"
+pre-release-commit-message = "v{{version}}"
+pre-release-hook = ["just", "_release-prepare", "{{version}}"]
