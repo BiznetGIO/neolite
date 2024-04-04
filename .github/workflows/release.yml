@@ -48,7 +48,7 @@ jobs:
         run: cat "${{ steps.git-cliff.outputs.changelog }}"
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GH_TOKEN }}
           name: "v${{ env.RELEASE_VERSION }}"
@@ -95,9 +95,7 @@ jobs:
           mkdir -p "${ARCHIVE_DIR}"
 
           # Source
-          cp -r "src" "$ARCHIVE_DIR"
-          # README, LICENSE and CHANGELOG files
-          cp "README.md" "LICENSE" "CHANGELOG.md" "$ARCHIVE_DIR"
+          cp -r * "$ARCHIVE_DIR"
 
           # Compress
           pushd "${PKG_STAGING}/" >/dev/null
