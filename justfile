@@ -15,8 +15,8 @@ _default:
     just --list --unsorted
 
 # Setup the repository.
-setup: _areyousure
-    just _cargo-install 'cargo-edit cargo-nextest cargo-outdated dprint git-cliff bacon typos-cli'
+setup:
+    # Please install: 'cargo-edit cargo-nextest cargo-outdated dprint git-cliff bacon typos-cli'
 
 # Tasks to make the code-base comply with the rules. Mostly used in git hooks.
 comply: _doc-check fmt lint test
@@ -94,36 +94,3 @@ up arg="":
     else {
         cargo outdated --root-deps-only
     }
-
-#
-# Helper
-#
-
-[unix]
-_cargo-install tool:
-    #!/usr/bin/env bash
-    if command -v cargo-binstall >/dev/null 2>&1; then
-        echo "cargo-binstall..."
-        cargo binstall --no-confirm --no-symlinks {{ tool }}
-    else
-        echo "Building from source"
-        cargo install --locked {{ tool }}
-    fi
-
-[unix]
-_areyousure:
-    #!/usr/bin/env bash
-    echo -e "This command will alter your system. ⚠️
-    You are advised to run in inside containerized environment.
-    Such as [toolbx](https://containertoolbx.org/).
-
-    If you are unsure. Run the installation commands manually.
-    Take a look at the 'setup' recipe in the Justfile.\n"
-
-    read -p "Are you sure you want to proceed? (Y/n) " response;
-    if [[ $response =~ ^[Yy] ]]; then
-        echo "Continue!";
-    else
-        echo "Cancelled!";
-        exit 1;
-    fi
