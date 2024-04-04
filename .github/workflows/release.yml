@@ -1,5 +1,10 @@
 name: Release
 
+# The worklow won't work without this permissions
+# https://github.com/softprops/action-gh-release?tab=readme-ov-file#permissions
+permissions:
+  contents: write
+
 on:
   push:
     tags:
