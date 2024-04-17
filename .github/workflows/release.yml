@@ -1,14 +1,10 @@
 name: Release
 
-# The worklow won't work without this permissions
-# https://github.com/softprops/action-gh-release?tab=readme-ov-file#permissions
-permissions:
-  contents: write
-
 on:
   push:
     tags:
       - 'v*'
+
 env:
   PROJECT_NAME: neolite
 
@@ -16,8 +12,11 @@ jobs:
   create-github-release:
     name: Create GitHub Release
     runs-on: ubuntu-22.04
+    # The worklow won't work without this permissions
+    # https://github.com/softprops/action-gh-release?tab=readme-ov-file#permissions
+    permissions:
+      contents: write
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -59,6 +58,8 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
